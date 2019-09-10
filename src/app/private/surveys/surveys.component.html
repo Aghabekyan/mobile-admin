@@ -1,0 +1,164 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog #cd [transitionOptions]="'100ms'" [style]="{width: '467px'}">
+  <p-footer>
+    <div class="button-container-right">
+      <button type="button" pButton label="Ոչ" class="btn btn-cancel" (click)="cd.reject()"></button>
+      <button type="button" pButton label="Այո" class="btn" (click)="cd.accept()"></button>
+    </div>
+  </p-footer>
+</p-confirmDialog>
+
+<p-dialog [(visible)]="invalidFormDisplay" [contentStyle]="{'max-width':'800', 'max-height':'600px'}" [closable]="false"
+          [modal]="true">
+  <div>
+    Խմդրում ենք լրացնել բոլոր պարտադիր դաշտերը
+  </div>
+
+  <p-footer>
+    <div class="button-container-right">
+      <button pButton type="button" label="Փակել" class="btn btn-cancel" (click)="invalidFormDisplay=false"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog [(visible)]="display" [contentStyle]="{'width':'800px'}" *ngIf="display"
+          styleClass="survay-change" [closable]="false" [resizable]="false" [draggable]="false" [modal]="true">
+
+  <form [formGroup]="surveysForm" [ngClass]="{'has-error': submitted }">
+
+    <h3 class="dialog-title" *ngIf="isUpdate">Փոփոխել Հարցումը</h3>
+    <h3 class="dialog-title" *ngIf="!isUpdate">Ավելացնել Հարցում</h3>
+    <div class="info-txt">
+      <ul *ngIf="isUpdate">
+        <li>Հարցերի տեքստերի խմբագրման դեպքում հարցի նախորդ տարբերակի պատասխանները վերագրվելու են հարցի խմբագրված տարբերակին։</li>
+        <li>Հարցման փոփոխման հնարավորությունը նախատեսված է թույլ տված տառասխալների ուղղման համար և ոչ հարցի բովանդակային փոփոխության։</li>
+      </ul>
+      <ul *ngIf="!isUpdate">
+        <li>Անհրաժեշտ է Հայերեն և Անգլերեն տարբերակների համար հարցերը լրացնել նույն հերթականությամբ, քանի որ դրանք համարվելու են նույն հարցի թարգմանությունները։</li>
+        <li>Ազատ տեքստ պատասխանով հարցերը պարտադիր չեն մասնակցի լրացման համար։</li>
+        <li>Տարիք հարցի համար սահմանված են հետևյալ խմբերը՝ մինչև 18, 18-30, 31-45, 46-60, 61 և ավել։</li>
+        <li>Սեռ հարցի համար սահմանված են Արական և Իգական տարբերակները։</li>
+        <li>Նոր հարցում ստեղծելը ենթադրում է գործող հարցման փոխարինում նորով և նախորդ հարցումը հնարավոր չէ վերակտիվացնել։</li>
+      </ul>
+    </div>
+    <div class="top-block">
+      <div class="ui-inputgroup">
+        <label>Անվանում</label>
+        <input type="text" pInputText formControlName="name">
+      </div>
+    </div>
+    <p-tabView scrollable="true">
+      <p-tabPanel header="Հայերեն" class="data-tab"
+                  [formGroup]="getFormByLang(surveysForm, 'surveys', languageEnum.am)">
+          <div formArrayName="surveyQuestions">
+            <div
+              *ngFor="let info of getFormByLang(surveysForm, 'surveys', languageEnum.am)['controls'].surveyQuestions['controls']; let i_question=index"
+              class="question-block">
+              <div formGroupName="{{i_question}}">
+                <div class="ui-g">
+                  <div class="ui-g-11">
+                    <label class="for-dropdown">Հարց {{i_question + 1}}</label>
+                    <p-dropdown [disabled]="isUpdate" [options]="types" formControlName="questionType"></p-dropdown>
+                    <textarea rows="3" pInputTextarea placeholder="Հարց" formControlName="text"></textarea>
+                  </div>
+                  <div class="ui-g-1" *ngIf="!isUpdate">
+                    <button pButton type="button" class="btn-delete-circle" (click)="deleteQuestion(i_question)"><i class="icon-close"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button pButton *ngIf="!isUpdate" type="button" label="Ավելացնել hարց" class="btn-add"
+                  (click)="addQuestion()"></button>
+
+      </p-tabPanel>
+      <p-tabPanel header="Անգլերեն" class="data-tab"
+                  [formGroup]="getFormByLang(surveysForm, 'surveys', languageEnum.en)">
+          <div formArrayName="surveyQuestions">
+            <div
+              *ngFor="let info of getFormByLang(surveysForm, 'surveys', languageEnum.en)['controls'].surveyQuestions['controls']; let i_question=index">
+              <div formGroupName="{{i_question}}">
+                <div class="ui-g">
+                  <div class="ui-g-11">
+                    <label class="for-dropdown">Հարց {{i_question + 1}}</label>
+                    <p-dropdown [disabled]="isUpdate" [options]="types" formControlName="questionType"></p-dropdown>
+                    <textarea rows="3" pInputTextarea placeholder="Հարց" formControlName="text"></textarea>
+                  </div>
+                  <div class="ui-g-1" *ngIf="!isUpdate">
+                    <button pButton type="button" class="btn-delete-circle" (click)="deleteQuestion(i_question)"><i class="icon-close"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button pButton type="button" *ngIf="!isUpdate" label="Ավելացնել hարց" class="btn-add"
+                  (click)="addQuestion()"></button>
+
+      </p-tabPanel>
+    </p-tabView>
+  </form>
+  <p-footer>
+    <div class="button-container-right">
+      <button [disabled]="popupSaveLoader" pButton type="button" label="Չեղարկել" (click)="cancel()"
+              class="btn btn-dismiss"></button>
+      <button [disabled]="popupSaveLoader" pButton type="button" label="Պահպանել" class="btn"
+              [ngClass]="{'has-loading': popupSaveLoader}" (click)="save()"><i class="fa fa-spinner fa-spin"
+                                                                               *ngIf="popupSaveLoader"></i></button>
+    </div>
+  </p-footer>
+
+</p-dialog>
+
+<div class="layout-inner">
+      <h1 class="page-title">Հարցում</h1>
+
+    <p-card>
+        <div class="flex-container flex-right">
+          <button pButton type="button" label="Ավելացնել" class="btn-add" (click)="addSurvey()"></button>
+        </div>
+        <p-table #dt [columns]="tableCols" [value]="surveys" [paginator]="true" [rows]="rowsCount">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+
+              </th>
+            </tr>
+            <tr *ngIf="!loader">
+            </tr>
+            <tr *ngIf="loader">
+              <td colspan="2">
+                <app-loader></app-loader>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+            <tr *ngIf="!loader">
+              <td>
+                {{rowData['name']}}
+              </td>
+              <td>
+                <div class="action-block pull-right">
+                  <button *ngIf="rowData['isActive'] " pButton type="button" label="Փոփոխել" class="btn-action btn-edit"
+                          (click)="clickEditItem(rowData.id)"></button>
+                  <button pButton (click)="goToPage('/survey-details', rowData.id)" type="button" label="Պատասխաններ" class="btn-action btn-answers"></button>
+
+                  <p-inputSwitch *ngIf="i === 0"  (onChange)="activateOrDeactivateSurvey(rowData.id, rowData['isActive'])" [(ngModel)]="rowData['isActive']"></p-inputSwitch>
+                  <p-inputSwitch *ngIf="i !== 0" class="hidden"></p-inputSwitch>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer" let-columns>
+
+            <div class="info">
+              Էջում տողերի քանակը
+              <p-dropdown [options]="rowsCounts" (onChange)="changePaginationCount($event)"></p-dropdown>
+            </div>
+
+          </ng-template>
+        </p-table>
+
+    </p-card>
+
+</div>

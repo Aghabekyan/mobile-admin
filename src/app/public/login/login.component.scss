@@ -1,0 +1,24 @@
+@import '~src/assets/styles/variables';
+@import '~src/assets/styles/components/checkbox';
+
+.page-title{
+  text-align: center;
+}
+::ng-deep .ui-card-body{
+  padding: 30px 30px 45px 30px !important;
+}
+
+.forgot-pass{
+  color: $blue-color;
+  &:hover{
+    color: $blue-color;
+  }
+}
+
+.back-overlay{
+  position: absolute;
+  background-color: rgba(0,0 ,0, 0.35 );
+  width: 100%;
+  height: 100%;
+}
+

@@ -1,0 +1,12 @@
+/.idea/
+.idea
+/node_modules/
+/dist/
+*.js
+npm
+angular-cli.json
+npm-debug.log
+.vs/
+/coverage/
+debug.log
+src/documentation

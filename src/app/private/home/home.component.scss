@@ -1,0 +1,27 @@
+.description{
+  font-size: 34px;
+  color: #92b84e;
+  line-height: 44px;
+  &:after{
+    content: '';
+    height: 2px;
+    width: 55px;
+    background: #92b84e;
+    display: block;
+    margin: 20px auto 0;
+  }
+}
+.info-txt{
+margin: 70px auto 25px;
+}
+@media (max-width: 1870px) {
+}
+@media (max-width: 1600px) {
+}
+@media (max-width: 1540px) {
+}
+@media (max-width: 1340px) {
+}
+
+
+

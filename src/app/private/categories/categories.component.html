@@ -1,0 +1,93 @@
+<p-confirmDialog #cd [transitionOptions]="'100ms'" [style]="{width: '467px'}">
+  <p-footer>
+    <div class="button-container-right">
+      <button type="button" pButton label="Ոչ" class="btn btn-cancel" (click)="cd.reject()"></button>
+      <button type="button" pButton label="Այո" class="btn" (click)="cd.accept()"></button>
+    </div>
+  </p-footer>
+</p-confirmDialog>
+<div class="layout-inner categories-page">
+    <h1 class="page-title">Կատեգորիաներ, ընտանիքներ</h1>
+    <p-card>
+        <p-toast position="top-right"></p-toast>
+        <p-dialog [(visible)]="display" [style]="{width: '500px'}" [modal]="true">
+          <h3 class="dialog-title" *ngIf="isUpdate">Փոփոխել {{currentRowData.name}} կատեգորիան</h3>
+          <h3 class="dialog-title" *ngIf="!isUpdate && nodeDataName()">Ավելացնել {{nodeDataName()}}-ի
+            ենթակատեգորիա </h3>
+          <form *ngIf="categoryCreateOrUpdate" [formGroup]="categoryCreateOrUpdate">
+            <div class="ui-inputgroup">
+              <label for="eng-name">Հայերեն անվանում</label>
+              <input *ngIf="isNameExists(1)" id="arm-name"
+                     [formControl]="categoryCreateOrUpdate.get('categories').at(1).get('name')" pInputText>
+            </div>
+            <div class="ui-inputgroup">
+              <label for="arm-name">Անգլերեն անվանում</label>
+              <input *ngIf="isNameExists(0)" id="eng-name"
+                     [formControl]="categoryCreateOrUpdate.get('categories').at(0).get('name')" pInputText>
+            </div>
+          </form>
+          <p-footer>
+            <div class="button-container-right">
+              <button pButton [disabled]="popupSaveLoader" (click)="cancelCategory()" class="btn btn-dismiss btn-big"
+                      label="Չեղարկել"></button>
+              <button pButton [disabled]="!categoryCreateOrUpdate.valid || popupSaveLoader"
+                      [ngClass]="{'has-loading': popupSaveLoader}" (click)="saveCategory()" class="btn btn-big"
+                      label="Պահպանել"><i class="fa fa-spinner fa-spin" *ngIf="popupSaveLoader"></i></button>
+            </div>
+          </p-footer>
+        </p-dialog>
+        <div class="lang-block">
+          <p>Տվյալների լեզուն</p>
+          <p-selectButton [options]="languages" [(ngModel)]="selectedCountry" optionLabel="name"
+                          (onChange)="onLanguageChange()">
+            <ng-template let-item>
+              <div>
+                <img src="assets/images/flags/{{item.value.flag}}"
+                     height="20px"/>
+                <span>{{item.value.name}}</span>
+              </div>
+            </ng-template>
+          </p-selectButton>
+        </div>
+        <p-treeTable *ngIf="natureCategories" [value]="natureCategories" selectionMode="single">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>անվանում</th>
+              <th></th>
+            </tr>
+            <tr *ngIf="loader">
+              <td colspan="4">
+                <app-loader></app-loader>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template *ngIf="!loader" pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr (click)="clickExpandNode($event, rowNode)">
+              <td>
+                <div class="flex-container">
+                  <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                  <span *ngIf="rowData.name">{{rowData.name}}</span>
+                </div>
+              </td>
+              <td>
+                <div class="pull-right">
+                  <button *ngIf="rowData.id" (click)="createCategory(rowData.id, rowData.natureType, rowNode)"
+                          class="btn-action btn-add" label="Ավելացնել" pButton></button>
+
+
+                  <button  *ngIf="canUpdate(rowData)" (click)="editCategory(rowData)" class="btn-action btn-edit" label="Փոփոխել" pButton></button>
+
+                  <button *ngIf="!canUpdate(rowData)" class="btn-action btn-edit" label="Փոփոխել" pButton
+                          style="visibility: hidden"></button>
+
+                  <button *ngIf="canDelete(rowNode)" (click)="deleteCategory(rowNode)" class="btn-action btn-delete"
+                          label="Ջնջել" pButton></button>
+                  <button *ngIf="!canDelete(rowNode)" class="btn-action btn-delete" label="Ջնջել" pButton
+                          style="visibility: hidden"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-treeTable>
+    </p-card>
+</div>

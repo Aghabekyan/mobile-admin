@@ -1,0 +1,33 @@
+@import '~src/assets/styles/variables';
+
+.ui-chkbox-box{
+  background-color: #f5f7f8 !important;
+  border-color: $border-color !important;
+  &.ui-state-active {
+    background-color: #f5f7f8 !important;
+    border-color: $border-color !important;
+    color: $green-color !important;
+    .ui-chkbox-icon{
+      font-size: 19px;
+
+    }
+
+  }
+}
+.ui-chkbox,
+.ui-chkbox-box{
+  width: 22px !important;
+  height: 22px !important;
+  &:focus,
+  &:hover,
+  &:active
+  &:focus-within{
+    outline: 0 !important;
+    border-color: $border-color !important;
+  }
+  .ui-state-focus,
+  .ui-label-focus{
+    box-shadow: none !important;
+  }
+}
+

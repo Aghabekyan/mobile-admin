@@ -1,0 +1,74 @@
+<p-toast position="top-right"></p-toast>
+<div class="layout-inner feedback-page">
+    <h1 class="page-title">Հետադարձ կապ</h1>
+    <p-card>
+        <p-table #dt [columns]="cols" [value]="natureFeedbacks" dataKey="id" [paginator]="true" [rows]="rowsCount">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <div class="flex-container" *ngSwitchCase="'name'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                         (input)="dt.filter($event.target.value, col.field, 'contains')">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+                <div class="flex-container" *ngSwitchCase="'email'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                         (input)="dt.filter($event.target.value, col.field, 'contains')">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+                <div class="flex-container" *ngSwitchCase="'natureName'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                         (input)="dt.filter($event.target.value, col.field, 'contains')">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+                <div class="flex-container" *ngSwitchCase="'subject'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                         (input)="dt.filter($event.target.value, col.field, 'contains')">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+              </th>
+            </tr>
+            <tr *ngIf="loader">
+              <td colspan="4">
+                <app-loader></app-loader>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-column>
+            <tr *ngIf="!loader" [pRowToggler]="rowData">
+              <td><i [ngClass]="expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
+                {{column.name}}</td>
+              <td>{{column.email}}</td>
+              <td>{{column.natureName ? column.natureName : '-'}}</td>
+              <td>{{column.subject}}</td>
+              <td>{{column.createDate | date:'dd-MM-yyyy HH:mm'}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+            <tr *ngIf="!loader" class="nested-tr">
+              <td [attr.colspan]="columns.length">
+                <div class="feedback-data">
+                    <p-lightbox [images]="rowData.natureFeedbacksImages"></p-lightbox>
+
+                  <div>
+                    <p>Հաղորդագրություն</p>
+                    {{rowData.message}}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="info">
+              Էջում տողերի քանակը
+              <p-dropdown [options]="rowsCounts" (onChange)="changePaginationCount($event)"></p-dropdown>
+            </div>
+          </ng-template>
+        </p-table>
+    </p-card>
+</div>

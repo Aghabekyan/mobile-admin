@@ -1,0 +1,57 @@
+<div class="ui-g public-page">
+  <div class="back-overlay"></div>
+  <div class="login-page center-block">
+
+    <div class="public-page-logo">
+      <img alt="logo" src="../../../../../assets/images/giz_icon.png" />
+      <span>Կարմիր Գիրք</span>
+    </div>
+    <p-card>
+      <p-messages class="" [value]="msgs"></p-messages>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('email').invalid && submitted)}">
+          <label for="email">Էլ․ հասցե</label>
+          <input formControlName="email" type="text" id="email" pInputText />
+
+          <div *ngIf="form.get('email').errors && submitted"
+            class="form-error invalid-feedback">
+            <div [hidden]="!form.get('email').errors['required']">Պարտադիր դաշտ</div>
+            <div [hidden]="!form.get('email').errors['maxLength']">Էլ․ հասցեն չի կարող գերազանցել 255 նիշը</div>
+            <div *ngIf="!form.controls['email'].errors['maxLength']">
+              <div [hidden]="!form.get('email').errors['validateEmail']">Ոչ վավեր էլ․ հասցե</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('password').invalid && submitted)}">
+          <label for="password">Գաղտնաբառ</label>
+
+          <input formControlName="password" type="password" id="password" pInputText />
+
+          <div *ngIf="form.get('password').errors && submitted"
+            class="form-error invalid-feedback">
+            <div [hidden]="!form.get('password').errors['required']">Պարտադիր դաշտ</div>
+            <div [hidden]="!form.get('password').errors['minLength']">Գաղտնաբառը պետք է լինի 6-20 նիշ</div>
+            <div [hidden]="!form.get('password').errors['maxLength']">Գաղտնաբառը պետք է լինի 6-20 նիշ</div>
+          </div>
+        </div>
+
+        <div class="bottom-block">
+          <div class="form-check">
+            <p-checkbox name="rememberMe" formControlName="rememberMe" [value]="rememberMeStatus"
+              [(ngModel)]="rememberMeStatus" id="yes" label="Հիշել"></p-checkbox>
+          </div>
+          <div class="forgot-pass">
+            <a [routerLink]="['/forgot-password']" class="forgot-pass">Մոռացել եք գաղտնաբառը</a>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button [disabled]="submitLoader" [ngClass]="{'has-loading': submitLoader}" pButton type="submit"
+            class="btn btn-auth inline-button" label="Մուտք"><i class="fa fa-spinner fa-spin"
+              *ngIf="submitLoader"></i></button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>

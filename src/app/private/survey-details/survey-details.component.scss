@@ -1,0 +1,24 @@
+@import '~src/assets/styles/variables';
+
+.info-txt{
+  color: $grey-color;
+  font-size: 16px;
+}
+.flex-container{
+  justify-content: space-between;
+    align-items: flex-start !important;
+}
+.flex-container .info-txt{
+  flex-basis: 63%;
+}
+.section-title{
+  font-size: 20px;
+  color: #8d969d;
+}
+.question-block{
+  flex-basis: 25%;
+  padding-right: 25px;
+}
+.answer-block{
+  flex-basis: 73%
+}

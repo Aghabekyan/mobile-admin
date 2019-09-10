@@ -1,0 +1,23 @@
+.info {
+  color: #8d969d;
+  font-size: 15px;
+  text-align: left;
+  ::ng-deep .ui-dropdown {
+    width: 60px !important;
+    margin-left: 5px;
+  }
+}
+th .flex-container{
+  display: flex;
+  flex-direction: row;
+  max-width: 215px;
+}
+.feedback-data {
+  & > div{
+    float: left;
+    max-width: 40%;
+  }
+  p-lightbox{
+    float: left;
+  }
+}

@@ -1,0 +1,256 @@
+@import '~src/assets/styles/variables';
+
+.ui-button{
+  border-color: transparent !important;
+  &:focus,
+  &:active{
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+}
+.ui-button.btn{
+  min-width: 190px !important;
+  height: 46px;
+  font-size: 18px !important;
+  background: $green-color !important;
+  &.inline-button{
+    width: 100% !important;
+    margin-top: 25px;
+  }
+  &.btn-dismiss{
+    background: #656d72 !important;
+  }
+}
+.ui-selectbutton{
+  .ui-button{
+    background: #fff !important;
+    border-radius: 20px !important;
+    border: 1px solid $border-color !important;
+    width: 106px !important;
+    height: 37px !important;
+    padding: 0 !important;
+    div{
+      padding: 6px 0 !important;
+      text-align: left;
+    }
+    img{
+      vertical-align: middle;
+      margin-right: 6px;
+      margin-left: 8px;
+    }
+    &:first-child{
+      margin-right: 10px;
+      width: 116px !important;
+    }
+    span{
+      color: #8d969d !important;
+      font-size: 15px;
+    }
+    &.ui-state-active{
+      border: 1px solid $blue-color !important;
+      background: #fff !important;
+      span{
+        color: #131e26 !important;
+      }
+    }
+  }
+}
+.btn-action.ui-widget{
+  padding: 0 20px !important;
+  background: #fff !important;
+  border-radius: 3px !important;
+  width: auto !important;
+  height: 30px !important;
+  font-size: 13px !important;
+  margin-right: 18px !important;
+  .ui-button-text{
+    padding: 0 !important;
+  }
+  &.btn-add{
+    color: #92b84e !important;
+    border: 1px solid #92b84e !important;
+  }
+  &.btn-delete{
+    color: #e32e26 !important;
+    border: 1px solid #e32e26 !important;
+    margin-right: 0 !important;
+  }
+  &.btn-answers{
+    color: $dark-blue !important;
+    border: 1px solid $dark-blue !important;
+    padding: 3px 15px !important;
+  }
+  &.btn-edit.ui-widget{
+    color: $blue-color !important;
+    border: 1px solid $blue-color !important;
+  }
+}
+.btn-delete-circle{
+  width: 32px;
+  height: 32px;
+  background: transparent !important;
+  color: #8d969d !important;
+  border-radius: 50% !important;
+  font-size: 12px !important;
+  border: 1px solid $border-color !important;
+  line-height:32px !important;
+  margin: 5px 0 14px !important;
+  float: right;
+  &:hover,
+  &:hover{
+    color: $red-color !important;
+    border-color: $red-color !important;
+  }
+}
+
+.btn-add:not(.btn-action){
+  background: transparent !important;
+  color: $green-color !important;
+  border: 1px solid $green-color !important;
+  border-radius: 20px !important;
+  padding:  0 12px 0 20px !important;
+  height: 36px !important;
+  &:before{
+    content: '';
+    display: inline-block;
+    width:10px;
+    height:10px;
+    background: url("~src/assets/images/svg/plus.svg");
+  }
+  span{
+    display: inline-block !important;
+    padding-right: 13px !important;
+    padding-left: 10px !important;
+  }
+  &:focus{
+    border: 1px solid $green-color !important;
+  }
+}
+.btn-export{
+  background: #fff !important;
+  color: #000000 !important;
+  border: 1px solid $border-color !important;
+  border-radius: 20px !important;
+  padding:  0 12px 0 20px !important;
+  height: 36px !important;
+  &:before{
+    content: '';
+    display: inline-block;
+    width:19px;
+    height:19px;
+    background: url("~src/assets/images/svg/export.svg");
+    vertical-align: middle;
+    margin-top: -2px;
+  }
+  span{
+    display: inline-block !important;
+    padding-right: 8px !important;
+    font-family: "DejaVu Sans Condensed Bold";
+  }
+  &:focus{
+    border: 1px solid $border-color !important;
+  }
+}
+.btn-pdf{
+  background: #fff !important;
+  color: #000000 !important;
+  border: 1px solid #cdd2d9;
+  border-radius: 27px !important;
+  padding: 0 34px 0 28px;
+  height: 52px !important;
+  font-family: "DejaVu Sans Condensed Bold";
+  font-size: 18px;
+  line-height: 47px;
+  display: inline-block;
+  &:before{
+    content: '';
+    display: inline-block;
+    width: 27px;
+    height: 31px;
+    background: url("~src/assets/images/svg/pdf.svg");
+    vertical-align: middle;
+    margin-right: 12px;
+    margin-top: -2px;
+  }
+  &:focus{
+    border: 1px solid $border-color !important;
+  }
+}
+.btn-dropdown{
+  height: 40px !important;
+  background: $dark-background !important;
+  margin-right: 38px !important;
+  padding-right: 30px !important;
+  border:none !important;
+  &:after{
+    content: "";
+    position: absolute;
+    font-family: 'primeicons';
+    right: 13px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 13px;
+  }
+}
+body .btn-search.ui-button{
+  height: 32px;
+  background-color: transparent  !important;
+  border: 1px solid $border-color !important;
+  border-left-width: 0 !important;
+  border-radius: 0 3px 3px 0 !important;
+}
+.ico-search{
+  background-image: url("~src/assets/images/svg/search.svg");
+  width: 15px !important;
+  height: 15px !important;
+}
+button.has-loading span{
+  display: inline-block !important;
+}
+
+.ui-confirmdialog .btn-cancel{
+  background-color: #656d72 !important;
+}
+.ui-fileupload-buttonbar{
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+.ui-fileupload-content{
+  display: none !important;
+}
+.ui-fileupload-choose{
+  background-color: transparent !important;
+  color: #92b84e !important;
+  color: $green-color !important;
+  border: 1px solid $green-color !important;
+  border-radius: 20px !important;
+  width: 100% !important;
+  height: 36px !important;
+  font-size: 15px;
+  .ui-button-text {
+    padding: 0 !important;
+    line-height: 32px !important;
+  }
+  .ui-button-icon-left{
+    display: none !important;
+  }
+  .ui-button-text:before{
+    content: '';
+    display: inline-block;
+    width:10px;
+    height:10px;
+    margin-right: 10px;
+    background: url("~src/assets/images/svg/plus.svg");
+  }
+  &:focus,
+  &.ui-state-focus{
+    border: 1px solid $green-color !important;
+  }
+}
+.btn-dropdown.invalid{
+  border: 2px solid red !important;
+  background: transparent !important;
+  color: black !important;
+}

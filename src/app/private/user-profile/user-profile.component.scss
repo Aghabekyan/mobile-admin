@@ -1,0 +1,24 @@
+.page-content{
+  width: 500px;
+  button{
+    float: right;
+  }
+}
+button{
+  margin-bottom: 30px;
+}
+::ng-deep .user-profile {
+  .ui-tabview-panels{
+    padding: 28px 25px !important;
+  }
+  .ui-tabview{
+    padding: 0 !important;
+    .ui-tabview-title{
+      text-transform: uppercase;
+    }
+    li a {
+      padding: 25px !important;
+    }
+  }
+}
+

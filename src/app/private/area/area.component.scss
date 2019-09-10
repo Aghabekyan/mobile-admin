@@ -1,0 +1,104 @@
+.info {
+  color: #8d969d;
+  ::ng-deep .ui-dropdown{
+    width: 60px !important;
+    margin-left: 5px;
+  }
+}
+.data-block{
+  flex: 2;
+  .btn-delete-circle{
+    position: absolute;
+    right: 0;
+    margin: 0 !important;
+    top: 0;
+  }
+  .ui-inputgroup:last-child{
+    margin-bottom: 0 !important;
+  }
+}
+.data-tab{
+  .ui-inputgroup{
+    margin-bottom: 15px !important;
+  }
+  .top-block{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dotted #c8c8c8;
+  }
+  .ui-g{
+    & > div:first-child{
+      flex: 1;
+      margin-right: 13px;
+    }
+    input,textarea{
+      margin-bottom: 15px !important;
+    }
+  }
+  .btn-add{
+    margin-bottom: 2px !important;
+    float: right;
+  }
+}
+.images-tab{
+  .flex-container{
+    margin-top: 19px;
+    padding-bottom: 25px;
+    border-bottom: 1px dotted #c8c8c8;
+    img{
+      display: block;
+    }
+  }
+}
+.img-block{
+  flex: 1;
+}
+.data-block[_ngcontent-c6] {
+  flex: 2;
+}
+.justify-space{
+  justify-content: space-between;
+}
+th .flex-container{
+  display: flex;
+  flex-direction: row;
+  max-width: 215px;
+}
+::ng-deep {
+  .ui-paginator-bottom.ui-paginator {
+    bottom: 0 !important;
+  }
+  .ui-tabview-panel .flex-container {
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+  }
+  .ui-radiobutton{
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    height: 20px !important;
+    margin: auto !important;
+  }
+  .category-modal{
+    .ui-dialog-content{
+      padding: 20px !important;
+    }
+    .ui-treetable-toggler{
+      top: 0 !important;
+    }
+    tbody tr:first-child td{
+      border-width: 0 !important;
+    }
+    td{
+      height: 44px !important;
+      position: relative;
+      padding-right: 0 !important;
+    }
+  }
+}
+p-dropdown.region {
+  width: 145px !important;
+}
+

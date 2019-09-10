@@ -1,0 +1,114 @@
+
+p-lightbox > div{
+  & > a{
+    width: 150px;
+    margin: 0 10px;
+    display: inline-block;
+    max-height: 115px;
+    overflow: hidden;
+    vertical-align: text-top;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
+    &:last-child{
+      margin-right: 30px;
+    }
+  }
+}
+.ui-lightbox{
+  top: 0 !important;
+  height: fit-content;
+  bottom: 0;
+  width: fit-content;
+  left: 0 !important;
+  right: 0;
+  margin: auto;
+  background: #fff;
+}
+.ui-lightbox-loading .ui-lightbox-content{
+  background: #fff !important;
+}
+.ui-lightbox-content-wrapper{
+  position: static !important;
+  .ui-lightbox-nav-left{
+    left: -80px !important;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    text-align: center;
+    .pi-chevron-left:before {
+      content: "\e900";
+      font-family: 'icomoon' !important;
+    }
+    &:hover{
+      -webkit-transform: unset !important;
+      transform: unset !important;
+    }
+    span{
+      font-size: 0.8em;
+    }
+  }
+  .pi{
+    color: #8e979e;
+  }
+  .ui-lightbox-nav-right{
+    right: -80px !important;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    text-align: center;
+    &:hover{
+      -webkit-transform: unset !important;
+      transform: unset !important;
+    }
+    .pi-chevron-right:before {
+      content: "\e901";
+      font-family: 'icomoon' !important;
+    }
+    span{
+        font-size: 0.8em;
+    }
+  }
+  .ui-lightbox-content{
+    width: 600px !important;
+    height: 450px !important;
+    background: #fff;
+    padding: 40px;
+    span,img{
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+    }
+
+  }
+}
+.ui-lightbox-caption{
+  display: block !important;
+  height: 0;
+  border: 0 !important;
+  padding: 0 !important;
+}
+.ui-lightbox-close{
+  span{
+    display: none;
+  }
+  &:after{
+    content: '×';
+    position: absolute;
+    background: #000;
+    color: #fff !important;
+    right: -30px;
+    top: -31px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50% !important;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}

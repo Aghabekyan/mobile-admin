@@ -1,0 +1,50 @@
+.ui-listbox{
+  padding: 0 !important;
+  border: none !important;
+  .ui-listbox-list-wrapper {
+    overflow: visible !important;
+  }
+}
+.ui-listbox-list{
+
+
+}
+.ui-listbox-item{
+  margin-bottom: 1px !important;
+  background-color: #e1e4e8 !important;
+  padding: 18px 17px !important;
+  div{
+    max-height: 100%;
+    overflow: hidden;
+  }
+  span{
+    color: #131e26;
+    line-height: 20px !important;
+    display: block;
+    font-size: 18px;
+  }
+}
+.ui-listbox-item.ui-state-highlight{
+  background-color: #4eb4b8 !important;
+  position: relative;
+  border-radius: 3px !important;
+  span{
+    color: #fff !important;
+    font-family: "DejaVu Sans Condensed Bold";
+  }
+  .ui-helper-clearfix:after{
+    top: 0;
+    content: '';
+    position: absolute;
+    right: -16px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 26px solid transparent;
+    border-bottom: 26px solid transparent;
+    border-left: 16px solid #4eb4b8;
+    border-radius: 0px;
+    bottom: 0;
+    margin: auto;
+  }
+}

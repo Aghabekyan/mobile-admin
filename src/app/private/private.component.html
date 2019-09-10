@@ -1,0 +1,8 @@
+<div class="layout-wrapper" [class.close]="!isOpen" (window:resize)="onResize($event)">
+  <app-top-bar (slideMenuChange)="displayMenuChanged($event)"></app-top-bar>
+  <app-menu></app-menu>
+  <div class="layout-main">
+      <router-outlet></router-outlet>
+
+  </div>
+</div>

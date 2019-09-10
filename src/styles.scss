@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'DejaVu Sans Condensed Bold';
+  src: url('/assets/fonts/DejaVuSansCondensed-Bold.woff2') format('woff2'),
+  url('/assets/fonts/DejaVuSansCondensed-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DejaVu Sans Condensed';
+  src: url('/assets/fonts/DejaVuSansCondensed.woff2') format('woff2'),
+  url('/assets/fonts/DejaVuSansCondensed.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@import "../node_modules/primeng/resources/primeng.css";
+@import '../node_modules/primeicons/primeicons.css';
+@import '../src/assets/styles/style_font.css';
+
+
+@import "../src/assets/styles/reset";
+@import "../src/assets/styles/variables";
+@import "../src/assets/styles/components/input";
+@import "../src/assets/styles/components/button";
+@import "../src/assets/styles/components/table";
+@import "../src/assets/styles/components/tabs";
+@import "../src/assets/styles/components/form";
+@import "../src/assets/styles/components/dropdown";
+@import "../src/assets/styles/components/radioButton";
+@import "../src/assets/styles/components/checkbox";
+@import "../src/assets/styles/components/dialog";
+@import "../src/assets/styles/components/scrollPane";
+@import "../src/assets/styles/components/messages";
+@import "../src/assets/styles/components/lightbox";
+@import "../src/assets/styles/components/listbox";
+@import "../src/assets/styles/layout/layout";
+@import "../src/assets/styles/responsive";
+

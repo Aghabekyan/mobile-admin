@@ -1,0 +1,44 @@
+@import '~src/assets/styles/variables';
+
+.ui-inputgroup{
+  margin-bottom: 20px;
+  flex-direction: column;
+  label{
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
+}
+.ui-inputtext{
+  background: #f5f7f8 !important;
+  border: 1px solid $border-color !important;
+  border-radius: 3px !important;
+  padding: 0.7em 0.7em !important;
+  width: 100% !important;
+  font-size: 17px !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  background: #f5f7f8 !important;
+}
+
+.has-error{
+  .ui-inputtext.ng-invalid{
+    border: 1px solid rgba(232, 57, 27, 0.56) !important;
+    background: $opacity-red !important;
+  }
+}
+
+.invalid-feedback{
+  color: $error-red;
+  margin-top: 4px;
+  font-size: 13px;
+}
+.input-search{
+  background: transparent !important;
+  height: 32px;
+  border-width: 1px 0 1px 1px !important;
+  border-radius: 3px 0 0 3px !important;
+  font-size: 14px !important;
+}

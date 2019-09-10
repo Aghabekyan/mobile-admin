@@ -1,0 +1,16 @@
+@import "~src/assets/styles/variables";
+
+.ui-messages.ui-messages-error{
+  background: $opacity-red !important;
+  padding: 1em 1.8em 1em 1em;
+  margin-top: 0px;
+  .ui-messages-icon,
+  .ui-messages-close{
+    display: none;
+  }
+  .ui-messages-detail{
+    color: $error-red;
+    font-size: 15px;
+    margin-left: 0;
+  }
+}

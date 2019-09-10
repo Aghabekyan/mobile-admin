@@ -1,0 +1,122 @@
+@import '~src/assets/styles/variables';
+
+.data-tab{
+  .ui-inputgroup{
+    margin-bottom: 15px !important;
+  }
+  .top-block{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dotted #919191;
+  }
+  .ui-g-11{
+    input,textarea{
+      margin-bottom: 15px !important;
+    }
+  }
+  .btn-add{
+    margin-bottom: 2px !important;
+    float: right;
+  }
+}
+
+.data-block{
+  flex: 2;
+  .btn-delete-circle{
+    position: absolute;
+    right: 0;
+    margin: 0 !important;
+    top: 0;
+  }
+  .ui-inputgroup:last-child{
+    margin-bottom: 0 !important;
+  }
+}
+
+::ng-deep {
+  .ui-paginator-bottom.ui-paginator {
+    bottom: 0 !important;
+  }
+}
+.info{
+  &:first-child{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+}
+
+::ng-deep {
+  .ui-inputswitch.ui-widget{
+    width: 105px !important;
+    height: 30px !important;
+  }
+  .ui-inputswitch{
+    &:after{
+      content: 'Միացնել';
+      display: block;
+      margin-left: 34px;
+      position: relative;
+      line-height: 30px;
+      color: #ffffff;
+      font-size: 13px;
+    }
+    .ui-inputswitch-slider{
+      background: #8d969d !important;
+    }
+  }
+  .ui-inputswitch-checked{
+    &:after{
+      content: 'Անջատել';
+      margin-right: 29px;
+      margin-left: 14px !important;
+    }
+    .ui-inputswitch-slider:before {
+      -webkit-transform: translateX(75px) !important;
+      transform: translateX(75px) !important;
+    }
+    .ui-inputswitch-slider{
+      background: #4eb4b8 !important;
+    }
+  }
+  .ui-inputswitch .ui-inputswitch-slider{
+    border-radius: 15px;
+    &:before{
+      height: 20px !important;
+      width: 20px !important;
+      margin: auto;
+      top: 0;
+      bottom: 0 !important;
+      left: 6px !important;
+    }
+  }
+
+  .hidden{
+    visibility: hidden;
+  }
+  .dialog-title{
+    margin-bottom: 20px !important;
+  }
+}
+
+.info-txt{
+  border: 2px dotted $green-color;
+  padding: 16px;
+  margin-bottom: 20px;
+  ul{
+    li{
+      margin-left: 18px;
+    }
+    li::before {
+      content: "\2022";
+      color: $green-color;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+}
+
+
+

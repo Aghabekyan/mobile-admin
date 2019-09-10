@@ -1,0 +1,84 @@
+<p-toast position="top-right"></p-toast>
+<div class="layout-inner">
+  <div class="user-profile">
+    <h1 class="page-title">Կարգավորումներ</h1>
+    <p-tabView>
+      <p-tabPanel header="Անձնական տվյալներ">
+        <div class="page-content">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+            <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('firstName').invalid && submitted)}">
+              <label class="form-label" for="firstName">Անուն</label>
+              <input class="form-control" [formControl]="form.get('firstName')" type="text" id="firstName" pInputText/>
+              <div *ngIf="form.get('firstName').errors && submitted" class="form-error invalid-feedback">
+                <div [hidden]="!form.get('firstName').errors['required']">Պարտադիր դաշտ</div>
+                <div [hidden]="!form.get('firstName').errors['maxLength']">Նիշերի քանակը գերազանցում է թույլատրելին</div>
+              </div>
+            </div>
+
+
+            <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('lastName').invalid && submitted)}">
+              <label class="form-label" for="lastName">Ազգանուն</label>
+              <input class="form-control" [formControl]="form.get('lastName')" type="text" id="lastName" pInputText/>
+              <div *ngIf="form.get('lastName').errors && submitted" class="form-error invalid-feedback">
+                <div [hidden]="!form.get('lastName').errors['required']">Պարտադիր դաշտ</div>
+                <div [hidden]="!form.get('lastName').errors['maxLength']">Նիշերի քանակը գերազանցում է թույլատրելին</div>
+              </div>
+            </div>
+
+            <div class="ui-inputgroup">
+              <label class="form-label" for="email">Էլ․ հասցե</label>
+              <input class="form-control"  [attr.disabled]="true" [formControl]="form.get('email')" type="text" id="email" pInputText/>
+            </div>
+
+            <div class="button-container">
+              <button [disabled]="submitLoader" [ngClass]="{'has-loading': submitLoader}" pButton type="submit"
+                class="btn btn-auth inline-button" label="Պահպանել"><i class="fa fa-spinner fa-spin"
+                  *ngIf="submitLoader"></i></button>
+            </div>
+
+          </form>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Փոխել գաղտնաբառը">
+
+        <div class="page-content">
+          <form [formGroup]="formChangePassword">
+            <div class="ui-inputgroup" [ngClass]="{'has-error': (formChangePassword.get('currentPassword').invalid && dialogSubmitted)}">
+              <label class="form-label" for="currentPassword">Գաղտնաբառ</label>
+              <input class="form-control" formControlName="currentPassword" type="password" id="currentPassword" pInputText/>
+              <div *ngIf="formChangePassword.get('currentPassword').errors && dialogSubmitted" class="form-error invalid-feedback">
+                <div [hidden]="!formChangePassword.get('currentPassword').errors['required']">Պարտադիր դաշտ</div>
+              </div>
+            </div>
+
+            <div class="ui-inputgroup" [ngClass]="{'has-error': (formChangePassword.get('password').invalid && dialogSubmitted)}">
+              <label class="form-label" for="password">Նոր գաղտնաբառը</label>
+              <input class="form-control" formControlName="password" type="password" id="password" pInputText/>
+              <div *ngIf="formChangePassword.get('password').errors && dialogSubmitted" class="form-error invalid-feedback">
+                <div [hidden]="!formChangePassword.get('password').errors['required']">Պարտադիր դաշտ</div>
+                <div [hidden]="!formChangePassword.get('password').errors['passwordValid'] && !formChangePassword.get('password').errors['minLength'] && !formChangePassword.get('password').errors['maxLength']">Գաղտնաբառը պետք է կազմված լինի 6-20 նիշից և պարունակի առնվազն մեկ տառ և մեկ թիվ</div>
+              </div>
+            </div>
+
+            <div class="ui-inputgroup" [ngClass]="{'has-error': (formChangePassword.get('confirmPassword').invalid && dialogSubmitted)}">
+              <label class="form-lable" for="confirmPassword">Կրկնել գաղտնաբառը</label>
+              <input class="form-control" formControlName="confirmPassword" type="password" id="confirmPassword" pInputText/>
+              <div *ngIf="formChangePassword.get('confirmPassword').errors && dialogSubmitted" class="form-error invalid-feedback">
+                <div [hidden]="!formChangePassword.get('confirmPassword').errors['required']">Պարտադիր դաշտ</div>
+                <div [hidden]="!formChangePassword.get('confirmPassword').errors['passwordValid'] && !formChangePassword.get('confirmPassword').errors['minLength'] && !formChangePassword.get('confirmPassword').errors['maxLength']">Գաղտնաբառը պետք է կազմված լինի 6-20 նիշից և պարունակի առնվազն մեկ տառ և մեկ թիվ</div>
+              </div>
+            </div>
+
+            <div class="form-error" *ngIf="formChangePassword.errors?.passwordsEqual && formChangePassword.get('password').valid && formChangePassword.get('confirmPassword').valid && formChangePassword.controls['password'].touched && formChangePassword.controls['confirmPassword'].touched">
+              <div [hidden]="!formChangePassword.errors['passwordsEqual']" class="form-error invalid-feedback">Գաղտնաբառերը չեն համընկնում</div>
+            </div>
+            <button [disabled]="submitLoader" [ngClass]="{'has-loading': submitLoader}" pButton type="submit" (click)="changePassword()"
+              class="btn btn-auth inline-button" label="Փոխել գաղտնաբառը"><i class="fa fa-spinner fa-spin"
+                *ngIf="submitLoader"></i></button>
+          </form>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

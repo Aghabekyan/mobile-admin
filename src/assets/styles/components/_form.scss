@@ -1,0 +1,23 @@
+.bottom-block{
+  margin: 2px 0 5px;
+  display: flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
+.form-check{
+  width: 30%;
+}
+.forgot-pass{
+  width: 70%;
+  text-align: right;
+}
+.has-error{
+  ::ng-deep input{
+    border-color: #e42c26;
+  }
+}
+form:after {
+  display: block;
+  clear: both;
+  content: " ";
+}

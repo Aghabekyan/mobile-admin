@@ -1,0 +1,386 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog #cd [transitionOptions]="'100ms'" [style]="{width: '467px'}">
+  <p-footer>
+    <div class="button-container-right">
+      <button type="button" pButton label="Ոչ" class="btn btn-cancel" (click)="cd.reject()"></button>
+      <button type="button" pButton label="Այո" class="btn" (click)="cd.accept()"></button>
+    </div>
+  </p-footer>
+</p-confirmDialog>
+
+<p-dialog [(visible)]="invalidFormDisplay" [contentStyle]="{'max-width':'800', 'max-height':'600px'}"
+
+          [closable]="false" [modal]="true">
+  <div>
+    Խմդրում ենք լրացնել բոլոր պարտադիր դաշտերը
+  </div>
+
+  <p-footer>
+    <div class="button-container-right">
+      <button pButton type="button" label="Փակել" class="btn btn-cancel" (click)="invalidFormDisplay=false"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog *ngIf="naturesForm" [(visible)]="categoryDisplay" class="category-modal" [modal]="true"
+          [contentStyle]="{'width':'650px', 'max-height':'400px'}" [closable]="true">
+  <a tabindex="0" class="ui-dialog-close" (click)="categoryDisplay=false"><i class="icon-close"></i></a>
+    <p-scrollPanel [style]="{width: '100%', height: '300px'}">
+      <div [formGroup]="naturesForm">
+        <p-treeTable *ngIf="natureCategories" [value]="natureCategories">
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr (click)="clickExpandNode($event, rowNode)">
+              <td *ngIf="rowData.name">
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.name}}
+                <p-radioButton *ngIf="rowNode.node.children.length < 1" value="{{rowData.id}}"
+                               formControlName="natureCategoryID"></p-radioButton>
+            </tr>
+          </ng-template>
+        </p-treeTable>
+      </div>
+    </p-scrollPanel>
+    <p-footer>
+      <div class="button-container-right">
+        <button pButton type="button" label="Ընտրել" class="btn btn-cancel" (click)="categoryDisplay=false"></button>
+      </div>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Create Item" [(visible)]="display" [contentStyle]="{'width':'800px'}"
+          *ngIf="display" styleClass="item-change"
+          [closable]="false" [resizable]="false" [draggable]="false" [modal]="true">
+  <form [formGroup]="naturesForm" [ngClass]="{'has-error': submitted }">
+
+    <h3 class="dialog-title" *ngIf="isUpdate">Փոփոխել տեսակը</h3>
+    <h3 class="dialog-title" *ngIf="!isUpdate">Ավելացնել Տեսակ</h3>
+    <div>
+      <button *ngIf="!naturesForm['controls'].natureCategoryID.value" type="button" (click)="showCategoryDialog()" pButton class="btn-dropdown" [ngClass]="{invalid: submitted}"
+              label="Ընտրել տեսակի ընտանիքը"></button>
+      <button *ngIf="naturesForm['controls'].natureCategoryID.value" type="button" (click)="showCategoryDialog()" pButton class="btn-dropdown"
+              label="{{collectedCategories[naturesForm['controls'].natureCategoryID.value]}}"></button>
+              
+      <p-checkbox label="Նշել որպես հետաքրքիր տեսակ" formControlName="isTop" binary="true"></p-checkbox>
+    </div>
+    <p-tabView scrollable="true">
+      <p-tabPanel header="Հայերեն" class="data-tab"
+                  [formGroup]="getFormByLang(naturesForm, 'natures', languageEnum.am)">
+        <p-scrollPanel [style]="{width: '102%', height: '40vh'}">
+          <div class="top-block">
+            <div class="ui-inputgroup">
+              <label>Դասի անվանում</label>
+              <input type="text" pInputText formControlName="className">
+            </div>
+            <div class="ui-inputgroup">
+              <label>Անվանում</label>
+              <input type="text" pInputText formControlName="name">
+            </div>
+            <div class="ui-inputgroup">
+              <label>Ենթատող</label>
+              <input type="text" pInputText formControlName="subInfo">
+            </div>
+          </div>
+          <div formArrayName="natureInfos">
+
+            <div
+              *ngFor="let info of getFormByLang(naturesForm, 'natures', languageEnum.am)['controls'].natureInfos['controls']; let i_info=index">
+              <div formGroupName="{{i_info}}" *ngIf="!info.controls['isActive'] || info.controls['isActive'].value">
+                <div class="ui-g">
+                  <div>
+                    <input type="text" pInputText placeholder="Վերնագիր" formControlName="key">
+                    <textarea rows="3" pInputTextarea placeholder="Նկարագիր" formControlName="value"></textarea>
+                  </div>
+                  <div>
+                    <button pButton type="button" class="btn-delete-circle"
+                            (click)="deleteInfo(info, i_info)"><i class="icon-close"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button pButton type="button" label="Ավելացնել նկարագիր" class="btn-add"
+                  (click)="addInfo(getFormByLang(naturesForm, 'natures', languageEnum.am))"></button>
+
+        </p-scrollPanel>
+      </p-tabPanel>
+
+      <p-tabPanel header="Անգլերեն" class="data-tab"
+                  [formGroup]="getFormByLang(naturesForm, 'natures', languageEnum.en)">
+        <p-scrollPanel [style]="{width: '102%', height: '40vh'}">
+          <div class="top-block">
+            <div class="ui-inputgroup">
+              <label>Դասի անվանում</label>
+              <input type="text" pInputText formControlName="className">
+            </div>
+            <div class="ui-inputgroup">
+              <label>Անվանում</label>
+              <input type="text" pInputText formControlName="name">
+            </div>
+            <div class="ui-inputgroup">
+              <label>Ենթատող</label>
+              <input type="text" pInputText formControlName="subInfo">
+            </div>
+          </div>
+          <div formArrayName="natureInfos">
+            <div
+              *ngFor="let info of getFormByLang(naturesForm, 'natures', languageEnum.en)['controls'].natureInfos['controls']; let i_info=index">
+              <div formGroupName="{{i_info}}" *ngIf="!info.controls['isActive'] || info.controls['isActive'].value">
+                <div class="ui-g">
+                  <div>
+                    <input type="text" pInputText placeholder="Վերնագիր" formControlName="key">
+                    <textarea rows="3" pInputTextarea placeholder="Նկարագիր" formControlName="value"></textarea>
+                  </div>
+                  <div>
+                    <button pButton type="button" class="btn-delete-circle"
+                            (click)="deleteInfo(info, i_info)"><i class="icon-close"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button pButton type="button" label="Ավելացնել նկարագիր" class="btn-add"
+                    (click)="addInfo(getFormByLang(naturesForm, 'natures', languageEnum.en))"></button>
+          </div>
+        </p-scrollPanel>
+      </p-tabPanel>
+
+      <p-tabPanel header="Քարտեզ" class="map-tab">
+        <p-scrollPanel [style]="{width: '102%', height: naturesForm['controls'].natureLocations['controls'].length > 0 ? '48vh' : '38vh'}">
+          <app-map (addShapeEvent)="addShapeEventListener($event)"
+                   (deleteShapeEvent)="deleteShapeEventListener($event)"
+                   (selectedShapeEvent)="selectedShapeEventListener($event)"
+                   (dragShapeEvent)="dragShapeEventListener($event)"
+                   [updateShapes]="updateShapes"
+                   [mode]="mapMode">
+          </app-map>
+          <div formArrayName="natureLocations" class="flex-container">
+            <div
+              *ngFor="let location of naturesForm['controls'].natureLocations['controls']; let i_location=index">
+              <div *ngIf="!location.controls['isActive'] || location.controls['isActive'].value"
+                   formGroupName="{{i_location}}"
+                   (click)="clickState(map_items[i_location])">
+                <p-dropdown [options]="states" formControlName="stateID"
+                            [class.active]="map_items[i_location] === selected_map_items"
+                            [class.invalid-dropdown]="naturesForm['controls'].natureLocations['controls'][i_location].invalid && submitted"></p-dropdown>
+
+              </div>
+
+
+            </div>
+          </div>
+        </p-scrollPanel>
+      </p-tabPanel>
+
+      <p-tabPanel header="Նկարներ" class="images-tab" formGroupName="natureImages">
+        <p-scrollPanel [style]="{width: '102%', height: '40vh'}">
+          <p-fileUpload name="myfile[]" accept=".jpg,.jpeg,.png" maxFileSize="1000000" multiple="multiple"
+                        chooseLabel="Ավելացնել" auto="true" customUpload="false" (onSelect)="onUpload($event)">
+          </p-fileUpload>
+          <div *ngIf="isUpdate" formGroupName="natureCreateImages">
+            <div
+              *ngFor="let new_image of naturesForm['controls'].natureImages['controls'].natureCreateImages['controls']; let i_image_new=index">
+              <div [formGroupName]="i_image_new" class="flex-container">
+                <div class="img-block">
+                  <img
+                    [src]="new_image.controls['image'].value | safe"
+                    height="170" width="220">
+                </div>
+
+                <div class="data-block">
+                  <button pButton type="button" class="btn-delete-circle"
+                          (click)="deleteImage(new_image, i_image_new)"><i class="icon-close"></i></button>
+                  <div class="ui-inputgroup"
+                    [formGroup]="getFormByLang(new_image, 'copyrights', languageEnum.am)">
+                    <label>Հայերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                  <div class="ui-inputgroup"
+                    [formGroup]="getFormByLang(new_image, 'copyrights', languageEnum.en)">
+                    <label>Անգլերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!isUpdate">
+            <div
+              *ngFor="let image of naturesForm['controls'].natureImages['controls']; let i_image=index">
+              <div [formGroupName]="i_image" class="flex-container">
+                <div class="img-block">
+                  <img
+                    [src]="image.controls['image'].value | safe"
+                    height="170" width="220">
+                </div>
+
+                <div class="data-block">
+                  <button pButton type="button" class="btn-delete-circle"
+                          (click)="deleteImage(image, i_image)"><i class="icon-close"></i></button>
+                  <div class="ui-inputgroup"
+                    [formGroup]="getFormByLang(image, 'copyrights', languageEnum.am)">
+                    <label>Հայերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                  <div class="ui-inputgroup"
+                    [formGroup]="getFormByLang(image, 'copyrights', languageEnum.en)">
+                    <label>Անգլերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isUpdate" formGroupName="natureUpdateImages">
+            <div
+              *ngFor="let old_image of naturesForm['controls'].natureImages['controls'].natureUpdateImages['controls']; let i_image_old=index">
+              <div [formGroupName]="i_image_old" *ngIf="old_image.controls['isActive'].value" class="flex-container">
+                <div class="img-block">
+                  <img [src]="imageEnvironmentUrl + old_image.controls['path'].value | safe" height="170" width="220">
+                </div>
+                <div class="data-block">
+                  <button pButton type="button" class="btn-delete-circle"
+                          (click)="deleteImage(old_image, i_image_old)"><i class="icon-close"></i></button>
+                  <div class="ui-inputgroup"
+                       [formGroup]="getFormByLang(old_image, 'copyrights', languageEnum.am)">
+                    <label>Հայերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                  <div class="ui-inputgroup"
+                       [formGroup]="getFormByLang(old_image, 'copyrights', languageEnum.en)">
+                    <label>Անգլերեն</label>
+                    <input type="text" pInputText
+                           placeholder="Հեղինակային իրավունք"
+                           formControlName="imageCopyright">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </p-tabPanel>
+    </p-tabView>
+  </form>
+  <p-footer>
+    <div class="button-container-right">
+      <button [disabled]="popupSaveLoader" pButton type="button" label="Չեղարկել" (click)="cancel()" class="btn btn-dismiss"></button>
+      <button [disabled]="popupSaveLoader" pButton type="button" label="Պահպանել" class="btn" [ngClass]="{'has-loading': popupSaveLoader}" (click)="save()"> <i class="fa fa-spinner fa-spin" *ngIf="popupSaveLoader"></i></button>
+    </div>
+  </p-footer>
+
+</p-dialog>
+
+<div class="layout-inner">
+    <h1 class="page-title">Բույսեր և կենդանիներ</h1>
+    <p-card>
+      <div class="lang-block">
+        <p>Տվյալների լեզուն</p>
+        <p-selectButton [options]="languages" [(ngModel)]="selectedLanguage" optionLabel="name"
+                        (onChange)="onLanguageChange()">
+          <ng-template let-item>
+            <div>
+              <img src="assets/images/flags/{{item.value.flag}}"
+                   height="20px"/>
+              <span>{{item.value.name}}</span>
+            </div>
+          </ng-template>
+        </p-selectButton>
+      </div>
+      <p-table #dt [columns]="tableCols" [value]="natures" [paginator]="true" [rows]="rowsCount">
+        <ng-template pTemplate="caption">
+          <div class="flex-container">
+            <div class="filter">
+              <img src="../../../assets/images/svg/turn-on.svg" width="22" height="20">
+              <div>
+                <label>Հետաքրքիր տեսակ</label>
+                <p-dropdown [options]="filterTopValues"
+                            [ngModel]="filterTopValues[0]"
+                            (onChange)="dt.filter($event.value, 'isTop', 'equals')"></p-dropdown>
+              </div>
+              <div>
+                <label>Մարզեր</label>
+                <p-dropdown [options]="filterStates"
+                            [ngModel]="filterStates[0]"
+                            (onChange)="dt.filter($event.value, 'states', 'contains')"></p-dropdown>
+              </div>
+            </div>
+            <div>
+              <button pButton type="button" label="Ավելացնել" class="btn-add" (click)="addNature()"></button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+
+            </th>
+          </tr>
+          <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+              <div class="flex-container" *ngSwitchCase="'className'">
+                <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                       (input)="dt.filter($event.target.value, col.field, 'contains')">
+                <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+              </div>
+              <div class="flex-container" *ngSwitchCase="'name'">
+                <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                       (input)="dt.filter($event.target.value, col.field, 'contains')">
+                <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+              </div>
+              <div class="flex-container" *ngSwitchCase="'subInfo'">
+                <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                       (input)="dt.filter($event.target.value, col.field, 'contains')">
+                <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+              </div>
+            </th>
+          </tr>
+          <tr *ngIf="loader">
+            <td colspan="4"><app-loader></app-loader></td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr *ngIf="!loader">
+            <td>
+              {{rowData['className'] ? rowData['className'] : '-'}}
+            </td>
+            <td>
+              {{rowData['name']}}
+              <sup *ngIf="rowData['isTop']"><img src="../../../assets/images/svg/star.svg" class="star-icon"></sup>
+            </td>
+            <td>
+              {{rowData['subInfo'] ? rowData['subInfo'] : '-'}}
+            </td>
+            <td>
+              <div class="action-block pull-right">
+                <button pButton type="button" label="Փոփոխել" class="btn-action btn-edit"
+                        (click)="clickEditItem(rowData.id)"></button>
+                <button pButton type="button" label="Ջնջել" class="btn-action btn-delete"
+                        (click)="delete(rowData.id)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns>
+
+          <div class="info">
+            <img src="../../../assets/images/svg/star.svg" class="star-icon">
+            Հետաքրքիր տեսակ
+          </div>
+          <div class="info">
+            Էջում տողերի քանակը
+            <p-dropdown [options]="rowsCounts" (onChange)="changePaginationCount($event)"></p-dropdown>
+          </div>
+
+        </ng-template>
+      </p-table>
+    </p-card>
+</div>

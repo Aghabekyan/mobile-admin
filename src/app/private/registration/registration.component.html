@@ -1,0 +1,244 @@
+<p-dialog [(visible)]="invalidFormDisplay" [contentStyle]="{'max-width':'800', 'max-height':'600px'}"
+          [closable]="false" [modal]="true">
+  <div>
+    Խմդրում ենք լրացնել բոլոր պարտադիր դաշտերը
+  </div>
+
+  <p-footer>
+    <div class="button-container-right">
+      <button pButton type="button" label="Փակել" class="btn btn-cancel"
+              (click)="invalidFormDisplay=false"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog [(visible)]="display" [contentStyle]="{'width':'600px'}" *ngIf="display" [closable]="false"
+          [modal]="true" class="register-admin">
+  <form [formGroup]="form" autocomplete="off" [ngClass]="{'has-error': submitted }">
+    <h3 class="dialog-title" *ngIf="isUpdate">Փոփոխել Ադմինիստրատորին</h3>
+    <h3 class="dialog-title" *ngIf="!isUpdate">Ավելացնել Ադմինիստրատոր</h3>
+    <div class="flex-container">
+        <div class="ui-inputgroup" [ngClass]="{'has-error': form.get('typeID').invalid && submitted}">
+          <label for="userType">Ադմինիստրատորի տեսակը</label>
+          <p-dropdown [options]="userTypes" formControlName="typeID" id="userType"></p-dropdown>
+          <div class="" *ngIf="form.get('typeID').errors && submitted" class="form-error invalid-feedback">
+            <div [hidden]="!form.get('typeID').errors['required']">
+              Պարտադիր դաշտ
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-inputgroup" *ngIf="isUpdate"
+             [ngClass]="{'has-error': (form.get('statusID').invalid && submitted)}">
+          <label for="status">Կարգավիճակ</label>
+          <p-dropdown [options]="accountStatuseForEdits" formControlName="statusID" id="status"></p-dropdown>
+
+          <div class="" *ngIf="form.get('statusID').errors && submitted" class="form-error invalid-feedback">
+            <div [hidden]="!form.get('statusID').errors['required']">
+              Պարտադիր դաշտ
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('firstName').invalid && submitted)}">
+      <label for="firstName">Անուն</label>
+      <input class="form-control" type="text" [formControl]="form.get('firstName')" id="firstName" pInputText />
+
+      <div class="" *ngIf="form.get('firstName').errors && submitted" class="form-error invalid-feedback">
+        <div [hidden]="!form.get('firstName').errors['required']">
+          Պարտադիր դաշտ
+        </div>
+        <div [hidden]="!form.get('firstName').errors['maxLength']" class="">
+          Նիշերի քանակը գերազանցում է թույլատրելին
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-inputgroup" [ngClass]="{'has-error': (form.get('lastName').invalid && submitted)}">
+      <label for="lastName">Ազգանուն</label>
+      <input class="form-control" type="text" [formControl]="form.get('lastName')" id="lastName" pInputText />
+
+      <div *ngIf="form.get('lastName').errors && submitted" class="form-error invalid-feedback">
+        <div [hidden]="!form.get('lastName').errors['required']">
+          Պարտադիր դաշտ
+        </div>
+        <div [hidden]="!form.get('lastName').errors['maxLength']">
+          Նիշերի քանակը գերազանցում է թույլատրելին
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-inputgroup" [ngClass]="{'has-error': form.get('email').invalid && submitted}">
+      <label>Էլ․ հասցե</label>
+      <input class="form-control" [formControl]="form.get('email')" [attr.disabled]="isUpdate ? '' : null"
+             type="text" pInputText />
+
+      <div *ngIf="form.get('email').errors && submitted" class="form-error invalid-feedback">
+        <div [hidden]="!form.get('email').errors['required']">
+          Պարտադիր դաշտ
+        </div>
+        <div [hidden]="!form.get('email').errors['validateEmail']">
+          Ոչ վավեր էլ․ հասցե
+        </div>
+        <div [hidden]="!form.get('email').errors['maxLength']">
+          Էլ․ հասցեն չի կարող գերազանցել 255 նիշը
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-inputgroup" *ngIf="!isUpdate"
+         [ngClass]="{'has-error': (form.get('password').invalid && submitted)}">
+      <label>
+        Գաղտնաբառ
+      </label>
+      <input class="form-control" type="password" formControlName="password" pInputText />
+
+      <div *ngIf="form.get('password').errors && submitted" class="form-error invalid-feedback">
+        <div [hidden]="!form.get('password').errors['required']">
+          Պարտադիր դաշտ
+        </div>
+        <div [hidden]="!form.get('password').errors['maxLength']">
+          Գաղտնաբառը պետք է լինի 6-20 նիշ
+        </div>
+        <div [hidden]="!form.get('password').errors['passwordValid']">
+          Գաղտնաբառը պետք կազմված լինի 6-20 նիշից և պարունակի առնվազն մեկ տառ և մեկ թիվ
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-inputgroup" *ngIf="!isUpdate"
+         [ngClass]="{'has-error': (form.get('confirmPassword').invalid && submitted)}">
+      <label for="confirmPassword">
+        Կրկնել գաղտնաբառը
+      </label>
+      <input class="form-control" type="password" formControlName="confirmPassword" id="confirmPassword"
+             pInputText />
+
+      <div *ngIf="form.get('confirmPassword').errors && submitted" class="form-error invalid-feedback">
+        <div [hidden]="!form.get('confirmPassword').errors['required']">
+          Պարտադիր դաշտ
+        </div>
+        <div [hidden]="!form.get('confirmPassword').errors['maxLength']">
+          Գաղտնաբառը պետք է լինի 6-20 նիշ
+        </div>
+        <div [hidden]="!form.get('confirmPassword').errors['passwordValid']">
+          Գաղտնաբառը պետք կազմված լինի 6-20 նիշից և պարունակի առնվազն մեկ տառ և մեկ թիվ
+        </div>
+      </div>
+    </div>
+    <div *ngIf="form.errors?.passwordsEqual && form.get('password').valid && form.get('confirmPassword').valid"
+         class="form-error invalid-feedback">
+      <div [hidden]="!form.errors['passwordsEqual']">
+        Գաղտնաբառերը չեն համընկնում
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div class="button-container-right">
+      <button [disabled]="popupSaveLoader" pButton type="button" label="Չեղարկել" (click)="cancel()"
+              class="btn btn-dismiss"></button>
+      <button [disabled]="popupSaveLoader" pButton type="button" [label]="isUpdate ? 'Փոփոխել' : 'Ավելացնել'"
+              class="btn" [ngClass]="{'has-loading': popupSaveLoader}" (click)="save()"><i class="fa fa-spinner fa-spin"
+                                                                                           *ngIf="popupSaveLoader"></i>
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<div class="layout-inner">
+  <div class="user-profile">
+    <p-toast position="top-right"></p-toast>
+
+    <p-confirmDialog #cd [transitionOptions]="'100ms'" [style]="{width: '467px'}">
+      <p-footer>
+        <div class="button-container-right">
+          <button type="button" pButton label="Ոչ" class="btn btn-cancel" (click)="cd.reject()"></button>
+          <button type="button" pButton label="Այո" class="btn" (click)="cd.accept()"></button>
+        </div>
+      </p-footer>
+    </p-confirmDialog>
+
+    <h1 class="page-title">Ադմինիստրատորներ</h1>
+
+    <p-card>
+      <div class="flex-container flex-right">
+        <button pButton type="button" label="Ավելացնել" class="btn-add" (click)="addUser()"></button>
+      </div>
+        <p-table #dt [columns]="tableCols" [value]="users" [paginator]="true" [rows]="rowsCount">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header }}
+              </th>
+            </tr>
+            <tr *ngIf="!loader">
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <div class="flex-container" *ngSwitchCase="'email'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+                <div class="flex-container" *ngSwitchCase="'firstName'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+                <div class="flex-container" *ngSwitchCase="'lastName'">
+                  <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                  <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                </div>
+
+
+              </th>
+            </tr>
+
+            <tr *ngIf="loader">
+              <td colspan="6">
+                <app-loader></app-loader>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td>
+                {{rowData['email']}}
+              </td>
+              <td>
+                {{rowData['firstName']}}
+              </td>
+              <td>
+                {{rowData['lastName']}}
+              </td>
+              <td>
+                {{getUserType(rowData['typeID']) }}
+              </td>
+
+              <td>
+                {{getAccountStatus(rowData['statusID']) }}
+              </td>
+              <td>
+                <div class="action-block pull-right">
+                  <button pButton type="button" *ngIf="letToEditUser(rowData['statusID'])" label="Փոփոխել" class="btn-action btn-edit"
+                    (click)="clickEditItem(rowData.id)"></button>
+
+                  <button pButton type="button" *ngIf="letToSendEmail(rowData['statusID'])" label="Կրկին ուղարկել" class="btn-action btn-edit"
+                          (click)="resendEmailConfirmationEmail(rowData['email'])"></button>
+                </div>
+
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer" let-columns>
+            <div class="info">
+              Էջում տողերի քանակը
+              <p-dropdown [options]="rowsCounts" (onChange)="changePaginationCount($event)"></p-dropdown>
+            </div>
+
+          </ng-template>
+        </p-table>
+
+    </p-card>
+  </div>
+</div>

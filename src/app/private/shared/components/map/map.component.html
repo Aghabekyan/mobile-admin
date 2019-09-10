@@ -1,0 +1,6 @@
+<div id="map"></div>
+<button *ngIf="mode == 'marker'" icon="ico ico-delete" pButton type="button" [disabled]="!selectedShape"
+        (click)="deleteSelectedMarker()" class="delete delete-point">
+</button>
+<button *ngIf="mode == 'polygon'" icon="ico ico-delete" pButton type="button" [disabled]="!selectedArea"
+        (click)="deleteSelectedArea()" class="delete delete-point"></button>

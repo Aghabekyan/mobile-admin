@@ -1,0 +1,84 @@
+@import '~src/assets/styles/variables';
+ul.ui-tabview-nav{
+  background: #fff !important;
+  li{
+    border-radius: 0;
+    background: transparent !important;
+    border: none !important;
+    span{
+      color: #7c868e !important;
+      font-size: 15px !important;
+    }
+    a{
+      padding: 1.5em !important;
+    }
+    &:focus{
+      outline: 0 !important;
+    }
+    &.ui-state-active{
+      background: transparent !important;
+      border-bottom: 2px solid $green-color !important;
+      span{
+        color: #1c2b36 !important;
+      }
+    }
+  }
+}
+.ui-tabview-panels{
+  border-width: 1px 0 0 0 !important;
+}
+.ui-dialog {
+  .ui-tabview{
+    padding: 0 !important;
+    margin-top: 25px !important;
+  }
+  ul.ui-tabview-nav li{
+    background-color: #e1e4e8 !important;
+    width: 24.5% !important;
+    a{
+      padding: 1em 0 !important;
+      text-align: center;
+      width: 100% !important;
+      text-transform: uppercase;
+    }
+    &.ui-state-active{
+      background-color: $blue-color !important;
+      border-bottom: 0 !important;
+      span{
+        color: #fff !important;
+      }
+    }
+  }
+  .ui-tabview-panels{
+    margin-top: 15px;
+    padding: 0 !important;
+    border: none !important;
+  }
+}
+.survay-change{
+  label.for-dropdown {
+    margin-bottom: 9px !important;
+    display: block;
+  }
+  ul.ui-tabview-nav li {
+    background-color: #e1e4e8 !important;
+    width: 49% !important;
+  }
+  .ui-dropdown{
+    margin-bottom: 15px !important;
+    width: 175px !important;
+  }
+}
+.survey-details{
+  .ui-tabview{
+    padding: 0 !important;
+  }
+  .ui-tabview-panels{
+    padding: 15px 40px 130px !important;
+  }
+  .ui-tabview-nav li a{
+    padding: 28px 40px 20px !important;
+    text-transform: uppercase;
+    font-weight: bold !important;
+  }
+}

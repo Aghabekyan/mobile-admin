@@ -1,0 +1,38 @@
+<div class="ui-topbar">
+
+  <div class="navbar-logo">
+
+    <a href="#" class="logo" [routerLink]="['/']">
+      <img alt="logo" src="../../../../../assets/images/giz_icon.png" />
+      <span>Կարմիր Գիրք</span>
+    </a>
+  </div>
+  <a class="sidebar-toggle" (click)="slideMenu()">
+    <img alt="logo" src="../../../../../assets/images/svg/sidebar_toggle.svg" />
+  </a>
+  <div class="user-profile nav-right">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown" (click)="clickEvent()"
+          [class.open]="dropDownOpen">
+        <a class="nav-item nav-link"  >
+          <span class="menuitem-icon"></span>
+          <span class="menuitem-text">{{currentUserFullName}}</span>
+          <span class="submenu-icon"></span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" class="settings" [routerLink]="['/user-profile']">
+              Անձնական տվյալներ
+            </a>
+
+            <a class="dropdown-item" *ngIf="userIsSuperAdmin" class="add-admin" [routerLink]="['/register']">
+              Ավելացնել ադմինիստրատոր
+            </a>
+            <a class="dropdown-item" class="sign-out" (click)="logOut()">
+              Ելք
+            </a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>

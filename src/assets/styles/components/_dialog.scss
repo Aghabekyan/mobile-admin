@@ -1,0 +1,93 @@
+.ui-dialog-titlebar {
+  display:none;
+}
+.ui-dialog {
+  .ui-inputgroup{
+    margin-bottom: 10px !important;
+  }
+  div[class^="ui-g-"]{
+    padding: 0 !important;
+  }
+  .button-container-right{
+    padding: 15px 35px;
+    button{
+      margin-right: 15px !important;
+      &:last-child{
+        margin-right: 0px !important;
+      }
+      &.btn-big{
+        width: 48% !important;
+        margin-right: 4% !important;
+        &:last-child{
+          margin-right: 0 !important;
+        }
+      }
+    }
+  }
+}
+.ui-dialog-content{
+  padding: 28px 33px !important;
+  max-height: 75vh;
+  border: none !important;
+  overflow: auto;
+}
+.ui-dialog-footer{
+  padding: 0 !important;
+  border: none !important;
+
+  -webkit-box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.14);
+  -moz-box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.14);
+}
+.dialog-title{
+  font-size: 22px;
+  margin: 0 0 20px;
+  line-height: 30px;
+}
+.ui-widget-overlay {
+  background-color: #192732 !important;
+  opacity: 0.3;
+}
+.item-change .ui-dialog-content{
+  padding-bottom: 3px !important;
+}
+.register-admin{
+  .flex-container {
+    justify-content: space-between !important;
+    .ui-inputgroup {
+      display: block !important;
+      .ui-dropdown {
+        width: 100% !important;
+      }
+    }
+  }
+}
+.category-modal .ui-dialog-content{
+  overflow: visible !important;
+}
+.ui-dialog-close{
+  position: absolute;
+  background: #000;
+  color: #fff;
+  right: -30px;
+  top: -31px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 10px;
+  cursor: pointer;
+  line-height: 30px;
+  &:hover{
+    color: #fff;
+  }
+}
+.ui-confirmdialog{
+  .ui-confirmdialog-message{
+    margin-bottom: 5px;
+    display: block;
+    strong{
+      font-size: 16px;
+    }
+  }
+}

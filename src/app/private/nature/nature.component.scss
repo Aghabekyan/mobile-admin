@@ -1,0 +1,146 @@
+@import '~src/assets/styles/variables';
+
+.lang-block{
+  margin-bottom: 0;
+}
+.star-icon{
+  width: 10px;
+  height: 10px;
+}
+
+.filter{
+  font-size: 15px;
+  color: #8d969d;
+
+  & > div{
+    display: inline-block;
+  }
+}
+
+th .flex-container{
+  display: flex;
+  flex-direction: row;
+  max-width: 215px;
+}
+
+.map-tab{
+  .flex-container{
+    flex-wrap: wrap;
+    justify-content: stretch;
+    &> div{
+      width: 31%;
+      margin-right: 3%;
+      &:nth-child(3n+3){
+        margin-right: 0;
+      }
+      div{
+        width: 100% !important;
+      }
+      ::ng-deep .ui-dropdown{
+        margin-top: 22px!important;
+        width: 100% !important;
+      }
+    }
+  }
+}
+.data-tab{
+  .ui-inputgroup{
+    margin-bottom: 15px !important;
+  }
+  .top-block{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px dotted #c8c8c8;
+  }
+  .ui-g{
+    & > div:first-child{
+      flex: 1;
+      margin-right: 13px;
+    }
+    input,textarea{
+      margin-bottom: 15px !important;
+    }
+  }
+  .btn-add{
+    margin-bottom: 2px !important;
+    float: right;
+  }
+}
+
+.images-tab{
+  .flex-container{
+    margin-top: 19px;
+    padding-bottom: 25px;
+    border-bottom: 1px dotted #c8c8c8;
+    img{
+      display: block;
+    }
+  }
+}
+.img-block{
+  flex: 1;
+}
+.data-block{
+  flex: 2;
+  .btn-delete-circle{
+    position: absolute;
+    right: 0;
+    margin: 0 !important;
+    top: 0;
+  }
+  .ui-inputgroup:last-child{
+    margin-bottom: 0 !important;
+  }
+}
+
+::ng-deep {
+  .ui-paginator-bottom.ui-paginator {
+    bottom: 45px;
+  }
+  .ui-tabview-panel .flex-container{
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+  }
+  .ui-radiobutton{
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    height: 20px !important;
+    margin: auto !important;
+  }
+  .category-modal{
+    .ui-dialog-content{
+      padding: 20px !important;
+    }
+    .ui-treetable-toggler{
+      top: 0 !important;
+    }
+    tbody tr:first-child td{
+      border-width: 0 !important;
+    }
+    td{
+      height: 44px !important;
+      position: relative;
+      padding: 0 0 0 10px !important;
+      .ui-radiobutton-label {
+        margin: 0 !important;
+        height: 100%;
+        display: inline-block;
+        line-height: 44px;
+        width: 90%;
+      }
+    }
+  }
+}
+.info{
+  &:first-child{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+

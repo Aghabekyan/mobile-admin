@@ -1,0 +1,108 @@
+<div class="layout-inner survey-details">
+  <div class="ui-g">
+      <h1 class="page-title">Հարցում: {{surveyName}}</h1>
+      <div class="flex-container">
+        <p class="info-txt">
+          Էջում ներկայացված է հարցման Այո/Ոչ պատասխանների ամփոփ վիճակագրությունը և ազատ տեքստով պատասխանները։
+          Հարցման բոլոր պատասխանները տեսնելու համար ներբեռնեք Excel ֆայլը։
+        </p>
+        <button [disabled]="loader" pButton type="button" label="Ներբեռնել" class="btn-export"
+                (click)="exportExcelBySurveyId(surveyId)" [ngClass]="{'has-loading': loader}"><i
+          class="fa fa-spinner fa-spin" *ngIf="loader"></i></button>
+      </div>
+      <p-tabView>
+        <p-tabPanel header="Այո/Ոչ">
+          <div>
+            <h3 class="section-title">Պատասխաններ</h3>
+            <p-table #dt [columns]="tableYesNoCols" [value]="radioButtonQuestionsResults">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    {{col.header}}
+                  </th>
+                </tr>
+                <tr *ngIf="questionsLoader || answersLoader">
+                  <td colspan="4">
+                    <app-loader></app-loader>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-answer>
+                <tr *ngIf="!questionsLoader">
+                  <td>{{answer.question}}</td>
+                  <td>{{answer.yes}}%</td>
+                  <td>{{answer.no}}%</td>
+                  <td>{{answer.count}}</td>
+                </tr>
+
+              </ng-template>
+              <ng-template pTemplate="footer" let-columns>
+
+              </ng-template>
+            </p-table>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="տեքստ">
+          <div class="flex-container">
+            <div class="question-block">
+              <h3 class="section-title">Հարցեր</h3>
+              <p-listbox [options]="textQuestions" [(ngModel)]="selectedQuestion" [listStyle]="{'max-height':'850px'}"
+                         (onChange)="changeQuestion()">
+                <ng-template let-item pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <span>{{item.label}}</span>
+                  </div>
+                </ng-template>
+              </p-listbox>
+
+            </div>
+            <div class="answer-block">
+              <h3 class="section-title">Պատասխաններ</h3>
+              <p-table #dt [columns]="tableTextCols" [value]="textAnswers" [paginator]="true" [rows]="rowsCount">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                      <div class="flex-container" *ngSwitchCase="'deviceId'">
+                        <input pInputText type="text" placeholder="Փնտրել" class="input-search"
+                               (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <button pButton type="button" icon="ico ico-search" class="btn-search"></button>
+                      </div>
+                    </th>
+                  </tr>
+                  <tr *ngIf="answersLoader">
+                    <td colspan="4">
+                      <app-loader></app-loader>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-answer>
+                  <tr *ngIf="!answersLoader">
+                    <td>{{answer.deviceId}}</td>
+                    <td>{{answer.answer ? answer.answer : '-'}}</td>
+                    <td>{{answer.createDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                  </tr>
+                  <tr *ngIf="answersLoader">
+                    <td colspan="4">
+                      <app-loader></app-loader>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-columns>
+                  <div class="info">
+                    Էջում տողերի քանակը
+                    <p-dropdown [options]="rowsCounts" (onChange)="changePaginationCount($event)"></p-dropdown>
+                  </div>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+
+  </div>
+</div>

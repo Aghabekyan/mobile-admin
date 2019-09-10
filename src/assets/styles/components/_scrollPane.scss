@@ -1,0 +1,16 @@
+.ui-dialog {
+  .ui-scrollpanel-bar {
+    width: 4px;
+    opacity: 1;
+  }
+  .ui-scrollpanel-wrapper{
+    width: 99% !important;
+  }
+  .ui-scrollpanel-content{
+    height: 100% !important;
+    overflow-y: scroll;
+  }
+}
+.ui-scrollpanel-bar-x{
+  display: none !important;
+}
